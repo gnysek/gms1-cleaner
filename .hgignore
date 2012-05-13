@@ -1,0 +1,7 @@
+# use glob syntax.
+syntax: glob
+
+StudioCleaner\bin\Debug\*
+StudioCleaner\bin\Release\*.pdb
+StudioCleaner\bin\Release\*.vshost*
+obj\*
