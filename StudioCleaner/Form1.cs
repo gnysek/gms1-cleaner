@@ -109,22 +109,32 @@ namespace StudioCleaner
 				{
 					TreeNode main = treeViewDisk.Nodes.Add(fup(nodeName));
 
-					foreach (string f in Directory.GetFiles(p, "*.gmx"))
-					{
-						string resName = Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(f));
+					string[] extensions = { "*.gmx", "*.gml" };
 
-						try
+					foreach (string ext in extensions)
+					{
+						foreach (string f in Directory.GetFiles(p, ext))
 						{
-							TreeNode selected = treeViewGMX.Nodes.Find(nodeName + "\\" + resName, true)[0];
-						}
-						catch
-						{
-							TreeNode current = main.Nodes.Add(Path.GetFileName(f), Path.GetFileName(f));
-							current.ForeColor = Color.Red;
-							current.ContextMenuStrip = contextMenuStrip1;
-							current.Tag = f;
-							current.ImageIndex = current.SelectedImageIndex = 1;
-							orphans++;
+							string resName = Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(f));
+
+							if (ext == extensions[1])
+							{
+								resName = Path.GetFileName(f);
+							}
+
+							try
+							{
+								TreeNode selected = treeViewGMX.Nodes.Find(nodeName + "\\" + resName, true)[0];
+							}
+							catch
+							{
+								TreeNode current = main.Nodes.Add(Path.GetFileName(f), Path.GetFileName(f));
+								current.ForeColor = Color.Red;
+								current.ContextMenuStrip = contextMenuStrip1;
+								current.Tag = f;
+								current.ImageIndex = current.SelectedImageIndex = 1;
+								orphans++;
+							}
 						}
 					}
 
