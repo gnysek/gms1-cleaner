@@ -94,5 +94,12 @@ namespace StudioCleaner.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap icon48 {
+            get {
+                object obj = ResourceManager.GetObject("icon48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

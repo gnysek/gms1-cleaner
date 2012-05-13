@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1296165143_onebit_26.ico" />
+    <None Include="Resources\icon48.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

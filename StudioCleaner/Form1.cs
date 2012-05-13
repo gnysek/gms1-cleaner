@@ -55,7 +55,7 @@ namespace StudioCleaner
 
 				if (orphans == 0)
 				{
-					MessageBox.Show("Looks that this project is free of orphans! Yay!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+					MessageBox.Show("Looks like this project is free of orphans! Yay!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
 		}
