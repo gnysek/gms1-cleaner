@@ -41,8 +41,8 @@ namespace StudioCleaner
 				GMXfilename = openFileDialog1.FileName;
 				orphans = 0;
 
-				treeViewGMX.Nodes.Clear();
-				treeViewDisk.Nodes.Clear();
+				clearTrees();
+				
 				string PName = Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(openFileDialog1.FileName));
 				treeViewGMX.Nodes.Add(PName);
 				treeViewDisk.Nodes.Add(PName);
@@ -53,10 +53,22 @@ namespace StudioCleaner
 
 				btnClearAll.Enabled = (orphans > 0) ? true : false;
 
-				if (orphans == 0)
-				{
-					MessageBox.Show("Looks like this project is free of orphans! Yay!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
+				checkZeroOprhans();
+			}
+		}
+
+		private void clearTrees() {
+			treeViewGMX.Nodes.Clear();
+			treeViewDisk.Nodes.Clear();
+		}
+
+		private void checkZeroOprhans()
+		{
+			if (orphans == 0)
+			{
+				MessageBox.Show("Looks like this project is free of orphans! Project will be closed!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				clearTrees();
+				btnClearAll.Enabled = false;
 			}
 		}
 
@@ -226,14 +238,11 @@ namespace StudioCleaner
 				orphans--;
 			}
 
-			if (orphans == 0)
-			{
-				btnClearAll.Enabled = false;
-			}
-
 			toolStripStatusOrphans.Text = orphans.ToString();
 
 			clearAllOprhansOnStack();
+
+			checkZeroOprhans();
 		}
 
 		private void clearAllOprhansOnStack()
