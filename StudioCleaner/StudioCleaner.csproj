@@ -70,6 +70,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HighlightColors.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -112,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1296165143_onebit_26.ico" />
+    <None Include="Resources\node-tree.png" />
+    <None Include="Resources\map_magnify.png" />
+    <None Include="Resources\page_white_code.png" />
     <None Include="Resources\icon48.png" />
   </ItemGroup>
   <ItemGroup>

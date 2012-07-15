@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Globalization;
+using System.Xml.Linq;
 
 namespace StudioCleaner
 {
@@ -20,6 +21,7 @@ namespace StudioCleaner
 		List<string> subFileNames = new List<string>();
 		List<string> subFilePaths = new List<string>();
 		List<TreeNode> subFileNodes = new List<TreeNode>();
+		List<string> usedObjects = new List<string>();
 
 		public Form1()
 		{
@@ -42,7 +44,7 @@ namespace StudioCleaner
 				orphans = 0;
 
 				clearTrees();
-				
+
 				string PName = Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(openFileDialog1.FileName));
 				treeViewGMX.Nodes.Add(PName);
 				treeViewDisk.Nodes.Add(PName);
@@ -52,12 +54,14 @@ namespace StudioCleaner
 				toolStripStatusOrphans.Text = orphans.ToString();
 
 				btnClearAll.Enabled = (orphans > 0) ? true : false;
+				btnUnusedAll.Enabled = true;
 
 				checkZeroOprhans();
 			}
 		}
 
-		private void clearTrees() {
+		private void clearTrees()
+		{
 			treeViewGMX.Nodes.Clear();
 			treeViewDisk.Nodes.Clear();
 		}
@@ -66,8 +70,9 @@ namespace StudioCleaner
 		{
 			if (orphans == 0)
 			{
-				MessageBox.Show("Looks like this project is free of orphans! Project will be closed!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-				clearTrees();
+				//MessageBox.Show("Looks like this project is free of orphans! Project will be closed!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				//clearTrees();
+				MessageBox.Show("Looks like this project is free of orphans!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
 				btnClearAll.Enabled = false;
 			}
 		}
@@ -103,7 +108,7 @@ namespace StudioCleaner
 
 				nodeElementsName = root.Attributes["name"].InnerText;
 
-				TreeNode main = treeViewGMX.Nodes.Add(fup(nodeElementsName));
+				TreeNode main = treeViewGMX.Nodes.Add(fup(nodeElementsName), fup(nodeElementsName));
 
 				readSubNode(root, nodeName, nodeElementsName, main);
 			}
@@ -175,23 +180,35 @@ namespace StudioCleaner
 				{
 					TreeNode sub = main.Nodes.Add(n.InnerText, Path.GetFileName(n.InnerText));
 					sub.ImageIndex = sub.SelectedImageIndex = 1;
+					sub.ContextMenuStrip = contextMenuStrip2;
+					sub.Tag = (nodeName == "scripts") ? n.InnerText /*+ ".gml"*/ : n.InnerText + "." + n.Name + ".gmx";
 				}
 			}
 		}
 
 		private void treeViewDisk_MouseUp(object sender, MouseEventArgs e)
 		{
+			treeViewMouseUp(sender, e, treeViewDisk);
+		}
+
+		private void treeViewGMX_MouseUp(object sender, MouseEventArgs e)
+		{
+			treeViewMouseUp(sender, e, treeViewGMX);
+		}
+
+		private void treeViewMouseUp(object sender, MouseEventArgs e, TreeView t)
+		{
 			if (e.Button == MouseButtons.Right)
 			{
 				Point pt = new Point(e.X, e.Y);
-				treeViewDisk.PointToClient(pt);
+				t.PointToClient(pt);
 
-				TreeNode Node = treeViewDisk.GetNodeAt(pt);
+				TreeNode Node = t.GetNodeAt(pt);
 				if (Node != null)
 				{
 					if (Node.Bounds.Contains(pt))
 					{
-						treeViewDisk.SelectedNode = Node;
+						t.SelectedNode = Node;
 					}
 				}
 			}
@@ -200,6 +217,11 @@ namespace StudioCleaner
 		private void toolStripOpenDir_Click(object sender, EventArgs e)
 		{
 			string filePath = @treeViewDisk.SelectedNode.Tag.ToString();
+			openResourceInExplorer(filePath);
+		}
+
+		private void openResourceInExplorer(string filePath)
+		{
 			if (!File.Exists(filePath))
 			{
 				return;
@@ -234,7 +256,7 @@ namespace StudioCleaner
 				TreeNode parent = t.Parent;
 				t.Remove();
 				if (parent.Nodes.Count == 0) parent.Remove();
-				
+
 				orphans--;
 			}
 
@@ -302,7 +324,7 @@ namespace StudioCleaner
 				if (DialogResult.No == MessageBox.Show(
 					"Removing those " + howMany.ToString() + " orphan(s) will also remove those files, are you sure?\n\n"
 					+ string.Join("\n", subFileNames.ToArray(), 0, Math.Min(subFileNames.Count, 10))
-					+ ((subFileNames.Count > 10) ? ("\n...\nand " + (subFileNames.Count-10).ToString() + " more")  : ""),
+					+ ((subFileNames.Count > 10) ? ("\n...\nand " + (subFileNames.Count - 10).ToString() + " more") : ""),
 					"Confirm",
 					MessageBoxButtons.YesNo,
 					MessageBoxIcon.Question
@@ -380,5 +402,203 @@ namespace StudioCleaner
 
 			return found;
 		}
+
+		private string getTreeViewGMXSelectedNodePath()
+		{
+			return GMXfilename.Replace(Path.GetFileName(GMXfilename), "") + treeViewGMX.SelectedNode.Tag.ToString();
+		}
+
+		private string getTreeViewGMXSelectedNodePath(string resName)
+		{
+			return GMXfilename.Replace(Path.GetFileName(GMXfilename), "") + resName;
+		}
+
+		private void toolStripOpenXML_Click(object sender, EventArgs e)
+		{
+			string filePath = getTreeViewGMXSelectedNodePath();
+
+			//MessageBox.Show(GMXfilename.Replace(Path.GetFileName(GMXfilename), "") + filePath);
+
+			richXML.LoadFile(filePath, RichTextBoxStreamType.PlainText);
+
+			HighlightColors.HighlightRTF(richXML);
+		}
+
+		private void treeViewGMX_DoubleClick(object sender, EventArgs e)
+		{
+			if (treeViewGMX.SelectedNode == null) return;
+			if (treeViewGMX.SelectedNode.Nodes.Count > 0) return;
+
+			toolStripOpenXML_Click(sender, e);
+		}
+
+		private void openInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			openResourceInExplorer(getTreeViewGMXSelectedNodePath());
+		}
+
+		private void btnUnusedAll_Click(object sender, EventArgs e)
+		{
+			usedObjects.Clear();
+
+			List<string> allObjects = new List<string>();
+
+			try
+			{
+				TreeNode to = treeViewGMX.Nodes.Find("Objects", true).First();
+				allObjects = findChildItems(to);
+
+				// first find in rooms - it's easier
+				// since there is creation code for rooms... it's not best way :(
+				/*TreeNode t = treeViewGMX.Nodes.Find("Rooms", true).First();
+				foreach (TreeNode node in t.Nodes)
+				{
+					if (node.Nodes.Count == 0)
+					{
+						findAllObjectsInRoom(getTreeViewGMXSelectedNodePath(node.Tag.ToString()));
+					}
+				}*/
+
+				int cnt = 0;
+				richXML.Clear();
+				string[] nodesToSearch = new string[] { "Scripts", "Objects", "Rooms" };
+
+				foreach (string nodeName in nodesToSearch)
+				{
+					// now search in scripts
+					try
+					{
+						TreeNode sc = treeViewGMX.Nodes.Find(nodeName, true).First();
+						findObjectInObjects(sc, allObjects);
+
+						// remove those found
+						foreach (string obj in usedObjects)
+						{
+							allObjects.Remove(obj);
+						}
+					}
+					catch (Exception error) {
+						richXML.AppendText("Nothing found under " + nodeName + " (Error: " + error.Message + ")\n");
+						cnt++;
+					}
+				}
+
+				// reports
+
+				richXML.AppendText("Those objects are found inside rooms & objects & scripts:\r\n");
+				cnt++;
+				
+				foreach (string obj in usedObjects)
+				{
+					richXML.AppendText(obj + "\r\n");
+					richXML.Select(richXML.GetFirstCharIndexFromLine(cnt), richXML.Lines[cnt].Length);
+					richXML.SelectionColor = Color.Green;
+					cnt++;
+				}
+
+				if (allObjects.Count > 0)
+				{
+					richXML.AppendText("Those objects are NOT found inside rooms & objects:\r\n");
+
+					cnt++;
+
+					foreach (string obj in allObjects)
+					{
+						richXML.AppendText(obj + "\r\n");
+						richXML.Select(richXML.GetFirstCharIndexFromLine(cnt), richXML.Lines[cnt].Length);
+						richXML.SelectionColor = Color.Red;
+						cnt++;
+					}
+				}
+
+			}
+			catch (Exception ex)
+			{
+			    richXML.AppendText("Error: " + ex.Message);
+			}
+
+		}
+
+		private void findObjectInObjects(TreeNode t, List<string> search)
+		{
+			if (t == null) return;
+
+			foreach (TreeNode node in t.Nodes)
+			{
+				if (node.Nodes.Count == 0)
+				{
+					string filename = getTreeViewGMXSelectedNodePath(node.Tag.ToString());
+					System.IO.StreamReader file = new System.IO.StreamReader(filename);
+					string line;
+					int counter = 0;
+					while ((line = file.ReadLine()) != null)
+					{
+						foreach (string word in search)
+						{
+							if (line.Contains(word))
+							{
+								if (usedObjects.IndexOf(word) == -1)
+									usedObjects.Add(word);
+							}
+						}
+						counter++;
+					}
+					file.Close();
+				}
+				else
+				{
+					findObjectInObjects(node, search);
+				}
+			}
+		}
+
+		private List<string> findChildItems(TreeNode t)
+		{
+			return findChildItems(t, new List<string>());
+		}
+
+		private List<string> findChildItems(TreeNode t, List<string> skip)
+		{
+			List<string> list = new List<string>();
+
+			foreach (TreeNode node in t.Nodes)
+			{
+				if (node.Nodes.Count == 0)
+				{
+					if (skip.IndexOf(node.Text) == -1)
+						list.Add(node.Text);
+				}
+				else
+				{
+					list.AddRange(findChildItems(node, skip));
+				}
+			}
+
+			return list;
+		}
+
+		//private void findAllObjectsInRoom(string roomFilename)
+		//{
+		//    XMLfile = new XmlDocument();
+		//    XMLfile.Load(roomFilename);
+
+		//    XmlNode root;
+		//    root = XMLfile.SelectSingleNode("room/instances");
+
+		//    if (root == null) return;
+
+		//    List<string> objNames = new List<string>();
+
+		//    foreach (XmlNode instance in root)
+		//    {
+		//        if (instance.Attributes["objName"] != null)
+		//        {
+		//            if (usedObjects.IndexOf(instance.Attributes["objName"].Value) == -1)
+		//            {
+		//                usedObjects.Add(instance.Attributes["objName"].Value);
+		//            }
+		//        }
+		//    }
+		//}
 	}
 }
