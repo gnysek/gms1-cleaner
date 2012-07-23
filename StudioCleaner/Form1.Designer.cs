@@ -47,6 +47,8 @@
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolStripStatusOrphans = new System.Windows.Forms.ToolStripStatusLabel();
 			this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.progressTotal = new System.Windows.Forms.ToolStripProgressBar();
+			this.btnUnusedPNG = new System.Windows.Forms.Button();
 			this.btnParentsAll = new System.Windows.Forms.Button();
 			this.btnUnusedAll = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -91,6 +93,7 @@
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.btnUnusedPNG);
 			this.panel1.Controls.Add(this.btnParentsAll);
 			this.panel1.Controls.Add(this.btnUnusedAll);
 			this.panel1.Controls.Add(this.pictureBox1);
@@ -195,12 +198,12 @@
 			// 
 			this.richXML.BackColor = System.Drawing.Color.White;
 			this.richXML.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.richXML.DetectUrls = false;
 			this.richXML.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.richXML.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.richXML.Location = new System.Drawing.Point(0, 0);
 			this.richXML.Name = "richXML";
 			this.richXML.ReadOnly = true;
-			this.richXML.ShortcutsEnabled = false;
 			this.richXML.Size = new System.Drawing.Size(453, 371);
 			this.richXML.TabIndex = 0;
 			this.richXML.Text = "";
@@ -210,7 +213,8 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusOrphans});
+            this.toolStripStatusOrphans,
+            this.progressTotal});
 			this.statusStrip1.Location = new System.Drawing.Point(0, 437);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(853, 24);
@@ -241,12 +245,35 @@
 			this.contextMenuStrip2.Name = "contextMenuStrip1";
 			this.contextMenuStrip2.Size = new System.Drawing.Size(171, 48);
 			// 
+			// progressTotal
+			// 
+			this.progressTotal.Name = "progressTotal";
+			this.progressTotal.Size = new System.Drawing.Size(100, 18);
+			this.progressTotal.Step = 1;
+			this.progressTotal.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+			this.progressTotal.ToolTipText = "Progress";
+			this.progressTotal.Visible = false;
+			// 
+			// btnUnusedPNG
+			// 
+			this.btnUnusedPNG.Enabled = false;
+			this.btnUnusedPNG.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.btnUnusedPNG.Image = global::StudioCleaner.Properties.Resources.images;
+			this.btnUnusedPNG.Location = new System.Drawing.Point(374, 3);
+			this.btnUnusedPNG.Name = "btnUnusedPNG";
+			this.btnUnusedPNG.Size = new System.Drawing.Size(119, 38);
+			this.btnUnusedPNG.TabIndex = 9;
+			this.btnUnusedPNG.Text = "Find orphan disk images";
+			this.btnUnusedPNG.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btnUnusedPNG.UseVisualStyleBackColor = true;
+			this.btnUnusedPNG.Click += new System.EventHandler(this.btnUnusedPNG_Click);
+			// 
 			// btnParentsAll
 			// 
 			this.btnParentsAll.Enabled = false;
 			this.btnParentsAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.btnParentsAll.Image = global::StudioCleaner.Properties.Resources.node_tree;
-			this.btnParentsAll.Location = new System.Drawing.Point(374, 3);
+			this.btnParentsAll.Location = new System.Drawing.Point(501, 8);
 			this.btnParentsAll.Name = "btnParentsAll";
 			this.btnParentsAll.Size = new System.Drawing.Size(119, 38);
 			this.btnParentsAll.TabIndex = 8;
@@ -377,9 +404,8 @@
 			this.Controls.Add(this.panel4);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.statusStrip1);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximizeBox = false;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "GMX cleaner (C) 2012 by gnysek";
@@ -429,6 +455,8 @@
 		private System.Windows.Forms.ToolStripMenuItem openInExplorerToolStripMenuItem;
 		private System.Windows.Forms.Button btnUnusedAll;
 		private System.Windows.Forms.Button btnParentsAll;
+		private System.Windows.Forms.ToolStripProgressBar progressTotal;
+		private System.Windows.Forms.Button btnUnusedPNG;
 	}
 }
 

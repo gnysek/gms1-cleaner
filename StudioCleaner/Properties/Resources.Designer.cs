@@ -102,6 +102,13 @@ namespace StudioCleaner.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap images {
+            get {
+                object obj = ResourceManager.GetObject("images", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap map_magnify {
             get {
                 object obj = ResourceManager.GetObject("map_magnify", resourceCulture);

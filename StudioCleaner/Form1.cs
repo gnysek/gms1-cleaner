@@ -55,6 +55,8 @@ namespace StudioCleaner
 
 				btnClearAll.Enabled = (orphans > 0) ? true : false;
 				btnUnusedAll.Enabled = true;
+				btnUnusedPNG.Enabled = true;
+				richXML.Clear();
 
 				checkZeroOprhans();
 			}
@@ -443,6 +445,8 @@ namespace StudioCleaner
 
 			List<string> allObjects = new List<string>();
 
+			btnUnusedAll.Enabled = false;
+
 			try
 			{
 				TreeNode to = treeViewGMX.Nodes.Find("Objects", true).First();
@@ -463,9 +467,14 @@ namespace StudioCleaner
 				richXML.Clear();
 				string[] nodesToSearch = new string[] { "Scripts", "Objects", "Rooms" };
 
+				progressTotal.Maximum = nodesToSearch.Count();
+				progressTotal.Value = 0;
+				progressTotal.Visible = true;
+				this.Refresh();
+
 				foreach (string nodeName in nodesToSearch)
 				{
-					// now search in scripts
+					// now search in scripts, obj, rooms
 					try
 					{
 						TreeNode sc = treeViewGMX.Nodes.Find(nodeName, true).First();
@@ -477,17 +486,21 @@ namespace StudioCleaner
 							allObjects.Remove(obj);
 						}
 					}
-					catch (Exception error) {
+					catch (Exception error)
+					{
 						richXML.AppendText("Nothing found under " + nodeName + " (Error: " + error.Message + ")\n");
 						cnt++;
 					}
+
+					progressTotal.Value++;
+					this.Refresh();
 				}
 
 				// reports
 
 				richXML.AppendText("Those objects are found inside rooms & objects & scripts:\r\n");
 				cnt++;
-				
+
 				foreach (string obj in usedObjects)
 				{
 					richXML.AppendText(obj + "\r\n");
@@ -511,12 +524,14 @@ namespace StudioCleaner
 					}
 				}
 
+				progressTotal.Visible = false;
 			}
 			catch (Exception ex)
 			{
-			    richXML.AppendText("Error: " + ex.Message);
+				richXML.AppendText("Error: " + ex.Message);
 			}
 
+			btnUnusedAll.Enabled = true;
 		}
 
 		private void findObjectInObjects(TreeNode t, List<string> search)
@@ -575,6 +590,73 @@ namespace StudioCleaner
 			}
 
 			return list;
+		}
+
+		private void btnUnusedPNG_Click(object sender, EventArgs e)
+		{
+			richXML.Clear();
+			btnUnusedPNG.Enabled = false;
+
+			List<string> allObjects = new List<string>();
+			List<string> usedSprites = new List<string>();
+
+			try
+			{
+				TreeNode to = treeViewGMX.Nodes.Find("Sprites", true).First();
+				//allObjects = findChildItems(to);
+				allObjects = getXmlResourcePaths(to);
+
+				//richXML.AppendText(String.Join("\n", allObjects));
+				foreach (string filename in allObjects)
+				{
+					XMLfile = new XmlDocument();
+					XMLfile.Load(filename);
+
+					XmlNode root;
+					root = XMLfile.SelectSingleNode("sprite/frames");
+
+					if (root == null) continue;
+					foreach (XmlNode frame in root)
+					{
+						//richXML.AppendText(Path.GetFileName(frame.InnerText) + "\n");
+						usedSprites.Add( Path.GetFileName(frame.InnerText) );
+					}
+				}
+
+				foreach (string filename in Directory.GetFiles(GMXfilename.Replace(Path.GetFileName(GMXfilename), "") + "\\sprites\\images", "*.*"))
+				{
+					if ( usedSprites.IndexOf( Path.GetFileName(filename) ) == -1 ) {
+						richXML.AppendText(Path.GetFileName(filename) + "\n");
+					}
+				}
+			}
+			catch (Exception error)
+			{
+				richXML.AppendText(error.Message);
+			}
+
+			btnUnusedPNG.Enabled = true;
+		}
+
+		public List<string> getXmlResourcePaths(TreeNode search)
+		{
+			List<string> tmp = new List<string>();
+
+			if (search == null) return tmp;
+
+			foreach (TreeNode node in search.Nodes)
+			{
+				if (node.Nodes.Count == 0)
+				{
+					tmp.Add(getTreeViewGMXSelectedNodePath(node.Tag.ToString()));
+				}
+				else
+				{
+					tmp.AddRange( getXmlResourcePaths(node) );
+				}
+			}
+
+			return tmp;
 		}
 
 		//private void findAllObjectsInRoom(string roomFilename)
