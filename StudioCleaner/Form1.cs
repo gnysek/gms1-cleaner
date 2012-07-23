@@ -56,6 +56,7 @@ namespace StudioCleaner
 				btnClearAll.Enabled = (orphans > 0) ? true : false;
 				btnUnusedAll.Enabled = true;
 				btnUnusedPNG.Enabled = true;
+				btnUnusedSprites.Enabled = true;
 				richXML.Clear();
 
 				checkZeroOprhans();
@@ -441,6 +442,17 @@ namespace StudioCleaner
 
 		private void btnUnusedAll_Click(object sender, EventArgs e)
 		{
+			findUnusedByType("Objects");
+		}
+
+
+		private void btnUnusedSprites_Click(object sender, EventArgs e)
+		{
+			findUnusedByType("Sprites");
+		}
+
+		private void findUnusedByType(string searchType){
+
 			usedObjects.Clear();
 
 			List<string> allObjects = new List<string>();
@@ -449,7 +461,7 @@ namespace StudioCleaner
 
 			try
 			{
-				TreeNode to = treeViewGMX.Nodes.Find("Objects", true).First();
+				TreeNode to = treeViewGMX.Nodes.Find(searchType, true).First();
 				allObjects = findChildItems(to);
 
 				// first find in rooms - it's easier
@@ -498,7 +510,7 @@ namespace StudioCleaner
 
 				// reports
 
-				richXML.AppendText("Those objects are found inside rooms & objects & scripts:\r\n");
+				richXML.AppendText("Those " + searchType + " are found inside rooms & objects & scripts:\r\n");
 				cnt++;
 
 				foreach (string obj in usedObjects)
@@ -511,7 +523,7 @@ namespace StudioCleaner
 
 				if (allObjects.Count > 0)
 				{
-					richXML.AppendText("Those objects are NOT found inside rooms & objects:\r\n");
+					richXML.AppendText("Those " + searchType + " are NOT found inside rooms & objects:\r\n");
 
 					cnt++;
 
