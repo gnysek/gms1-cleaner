@@ -673,6 +673,11 @@ namespace StudioCleaner
 			return tmp;
 		}
 
+		private void Form1_Shown(object sender, EventArgs e)
+		{
+			this.Text = this.Text + " / v. " + Application.ProductVersion;
+		}
+
 		//private void findAllObjectsInRoom(string roomFilename)
 		//{
 		//    XMLfile = new XmlDocument();
