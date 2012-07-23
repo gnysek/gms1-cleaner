@@ -129,5 +129,12 @@ namespace StudioCleaner.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap photos {
+            get {
+                object obj = ResourceManager.GetObject("photos", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

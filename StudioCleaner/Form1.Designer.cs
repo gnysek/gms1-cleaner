@@ -48,6 +48,7 @@
 			this.toolStripStatusOrphans = new System.Windows.Forms.ToolStripStatusLabel();
 			this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.progressTotal = new System.Windows.Forms.ToolStripProgressBar();
+			this.btnUnusedSprites = new System.Windows.Forms.Button();
 			this.btnUnusedPNG = new System.Windows.Forms.Button();
 			this.btnParentsAll = new System.Windows.Forms.Button();
 			this.btnUnusedAll = new System.Windows.Forms.Button();
@@ -93,6 +94,7 @@
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.btnUnusedSprites);
 			this.panel1.Controls.Add(this.btnUnusedPNG);
 			this.panel1.Controls.Add(this.btnParentsAll);
 			this.panel1.Controls.Add(this.btnUnusedAll);
@@ -254,12 +256,26 @@
 			this.progressTotal.ToolTipText = "Progress";
 			this.progressTotal.Visible = false;
 			// 
+			// btnUnusedSprites
+			// 
+			this.btnUnusedSprites.Enabled = false;
+			this.btnUnusedSprites.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.btnUnusedSprites.Image = global::StudioCleaner.Properties.Resources.photos;
+			this.btnUnusedSprites.Location = new System.Drawing.Point(374, 3);
+			this.btnUnusedSprites.Name = "btnUnusedSprites";
+			this.btnUnusedSprites.Size = new System.Drawing.Size(119, 38);
+			this.btnUnusedSprites.TabIndex = 10;
+			this.btnUnusedSprites.Text = "Find unused sprites";
+			this.btnUnusedSprites.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btnUnusedSprites.UseVisualStyleBackColor = true;
+			this.btnUnusedSprites.Click += new System.EventHandler(this.btnUnusedSprites_Click);
+			// 
 			// btnUnusedPNG
 			// 
 			this.btnUnusedPNG.Enabled = false;
 			this.btnUnusedPNG.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.btnUnusedPNG.Image = global::StudioCleaner.Properties.Resources.images;
-			this.btnUnusedPNG.Location = new System.Drawing.Point(374, 3);
+			this.btnUnusedPNG.Location = new System.Drawing.Point(499, 3);
 			this.btnUnusedPNG.Name = "btnUnusedPNG";
 			this.btnUnusedPNG.Size = new System.Drawing.Size(119, 38);
 			this.btnUnusedPNG.TabIndex = 9;
@@ -273,7 +289,7 @@
 			this.btnParentsAll.Enabled = false;
 			this.btnParentsAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.btnParentsAll.Image = global::StudioCleaner.Properties.Resources.node_tree;
-			this.btnParentsAll.Location = new System.Drawing.Point(501, 8);
+			this.btnParentsAll.Location = new System.Drawing.Point(624, 3);
 			this.btnParentsAll.Name = "btnParentsAll";
 			this.btnParentsAll.Size = new System.Drawing.Size(119, 38);
 			this.btnParentsAll.TabIndex = 8;
@@ -457,6 +473,7 @@
 		private System.Windows.Forms.Button btnParentsAll;
 		private System.Windows.Forms.ToolStripProgressBar progressTotal;
 		private System.Windows.Forms.Button btnUnusedPNG;
+		private System.Windows.Forms.Button btnUnusedSprites;
 	}
 }
 

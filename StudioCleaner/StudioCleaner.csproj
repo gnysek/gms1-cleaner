@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1296165143_onebit_26.ico" />
+    <None Include="Resources\photos.png" />
     <None Include="Resources\images.png" />
     <None Include="Resources\node-tree.png" />
     <None Include="Resources\map_magnify.png" />
