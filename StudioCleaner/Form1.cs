@@ -451,7 +451,8 @@ namespace StudioCleaner
 			findUnusedByType("Sprites");
 		}
 
-		private void findUnusedByType(string searchType){
+		private void findUnusedByType(string searchType)
+		{
 
 			usedObjects.Clear();
 
@@ -631,13 +632,14 @@ namespace StudioCleaner
 					foreach (XmlNode frame in root)
 					{
 						//richXML.AppendText(Path.GetFileName(frame.InnerText) + "\n");
-						usedSprites.Add( Path.GetFileName(frame.InnerText) );
+						usedSprites.Add(Path.GetFileName(frame.InnerText));
 					}
 				}
 
 				foreach (string filename in Directory.GetFiles(GMXfilename.Replace(Path.GetFileName(GMXfilename), "") + "\\sprites\\images", "*.*"))
 				{
-					if ( usedSprites.IndexOf( Path.GetFileName(filename) ) == -1 ) {
+					if (usedSprites.IndexOf(Path.GetFileName(filename)) == -1)
+					{
 						richXML.AppendText(Path.GetFileName(filename) + "\n");
 					}
 				}
@@ -664,7 +666,7 @@ namespace StudioCleaner
 				}
 				else
 				{
-					tmp.AddRange( getXmlResourcePaths(node) );
+					tmp.AddRange(getXmlResourcePaths(node));
 				}
 			}
 
