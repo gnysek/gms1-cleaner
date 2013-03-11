@@ -78,7 +78,7 @@ namespace StudioCleaner
 		GMRoomBackgrounds[] backgrounds;
 		GMRoomViews[] views;
 		GMRoomIntances[] instances;
-		bool phyWorld = 0;
+		bool phyWorld = false;
 		int phyWTop, phyWLeft, phyWRight, phyWBottom, phyWGravX, phyWGravY, phyWPixToMeters = 0;
 	}
 

@@ -69,6 +69,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GMXFormat\GMXEnums.cs" />
+    <Compile Include="GMXFormat\GMXFile.cs" />
+    <Compile Include="GMXFormat\GMXResource.cs" />
+    <Compile Include="GMXFormat\XMLTools.cs" />
     <Compile Include="HighlightColors.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
