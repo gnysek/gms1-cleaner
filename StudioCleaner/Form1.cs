@@ -57,7 +57,11 @@ namespace StudioCleaner
 				btnUnusedAll.Enabled = true;
 				btnUnusedPNG.Enabled = true;
 				btnUnusedSprites.Enabled = true;
-				richXML.Clear();
+
+				foreach (PropertyForm p in panelCodeEditor.Controls)
+				{
+					p.Dispose();
+				}
 
 				checkZeroOprhans();
 			}
@@ -419,12 +423,43 @@ namespace StudioCleaner
 		private void toolStripOpenXML_Click(object sender, EventArgs e)
 		{
 			string filePath = getTreeViewGMXSelectedNodePath();
+			string tag = Path.GetFileNameWithoutExtension(filePath);
 
-			//MessageBox.Show(GMXfilename.Replace(Path.GetFileName(GMXfilename), "") + filePath);
+			createPropWindow(filePath, tag);
+		}
 
-			richXML.LoadFile(filePath, RichTextBoxStreamType.PlainText);
+		private PropertyForm createPropWindow(string filename, string tag)
+		{
+			if (panelCodeEditor.Controls.Count > 0)
+			{
+				foreach (PropertyForm p in panelCodeEditor.Controls)
+				{
+					if (p.Tag.ToString() == tag)
+					{
+						p.BringToFront();
+						return p;
+					}
+				}
+			}
 
-			HighlightColors.HighlightRTF(richXML);
+			PropertyForm f = new PropertyForm();
+			f.TopLevel = false;
+			f.Tag = tag;
+			f.StartPosition = FormStartPosition.Manual;
+			//f.Dock = DockStyle.Fill;
+			panelCodeEditor.Controls.Add(f);
+			f.BringToFront();
+			if (filename != "") {
+				f.richXML.LoadFile(filename, RichTextBoxStreamType.PlainText);
+				HighlightColors.HighlightRTF(f.richXML);
+			}
+			
+			int pos = ((panelCodeEditor.Controls.Count - 1) * 30) % (panelCodeEditor.Width - f.Width) + 1;
+			f.Location = new Point(pos, pos);
+			f.Text = tag;
+			f.Show();
+
+			return f;
 		}
 
 		private void treeViewGMX_DoubleClick(object sender, EventArgs e)
@@ -460,6 +495,11 @@ namespace StudioCleaner
 
 			btnUnusedAll.Enabled = false;
 
+			PropertyForm p = createPropWindow("", "unused" + searchType);
+			RichTextBox richXML = p.richXML;
+			richXML.Clear();
+			p.Text = "Unused " + searchType;
+
 			try
 			{
 				TreeNode to = treeViewGMX.Nodes.Find(searchType, true).First();
@@ -477,7 +517,7 @@ namespace StudioCleaner
 				}*/
 
 				int cnt = 0;
-				richXML.Clear();
+
 				string[] nodesToSearch = new string[] { "Scripts", "Objects", "Rooms" };
 
 				progressTotal.Maximum = nodesToSearch.Count();
@@ -607,7 +647,11 @@ namespace StudioCleaner
 
 		private void btnUnusedPNG_Click(object sender, EventArgs e)
 		{
+			PropertyForm p = createPropWindow("", "unusedPNG");
+			RichTextBox richXML = p.richXML;
 			richXML.Clear();
+			p.Text = "Orphan PNGs on disk";
+			
 			btnUnusedPNG.Enabled = false;
 
 			List<string> allObjects = new List<string>();
@@ -676,6 +720,15 @@ namespace StudioCleaner
 		private void Form1_Shown(object sender, EventArgs e)
 		{
 			this.Text = this.Text + " / v. " + Application.ProductVersion;
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			PropertyForm f = new PropertyForm();
+			f.TopLevel = false;
+			//f.Dock = DockStyle.Fill;
+			panelCodeEditor.Controls.Add(f);
+			f.Show();
 		}
 
 		//private void findAllObjectsInRoom(string roomFilename)
