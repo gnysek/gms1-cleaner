@@ -19,10 +19,8 @@ namespace StudioCleaner
 		public static Color HC_COMMENT = Color.Gray;
 		public static Color HC_INNERTEXT = Color.Black;
 
-		public static void HighlightRTF(RichTextBox rtb)
+		public static RichTextBox HighlightRTF(RichTextBox rtb)
 		{
-
-
 			//foreach (string str in rtb.Lines)
 			//{
 			//    if (str.Contains("<"))
@@ -134,12 +132,15 @@ namespace StudioCleaner
 				}
 				if (state == 1)
 				{
-					//rtb.Select(st + 1, nodeText.Length);
-					rtb.Select(st, nodeText.Length + 2);
+					rtb.Select(st + 1, nodeText.Length);
+					//rtb.Select(st, nodeText.Length + 2);
 					rtb.SelectionColor = HighlightColors.HC_NODE;
 				}
 			}
 
+			rtb.Select(0,0);
+
+			return rtb;
 		}
 		//    }
 		//}
