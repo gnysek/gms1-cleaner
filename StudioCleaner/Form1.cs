@@ -58,7 +58,7 @@ namespace StudioCleaner
 				btnUnusedPNG.Enabled = true;
 				btnUnusedSprites.Enabled = true;
 
-				foreach (PropertyForm p in panelCodeEditor.Controls)
+				foreach (PropertyForm p in this.MdiChildren)
 				{
 					p.Dispose();
 				}
@@ -90,7 +90,7 @@ namespace StudioCleaner
 			XMLfile.Load(filename);
 
 			//list of GM resource types
-			string[] resTree = new string[] { "sprites", "sounds", "backgrounds", "paths", "fonts", "scripts", "objects", "rooms" };
+			string[] resTree = new string[] { "sprites", "sounds", "backgrounds", "scripts", "paths", "fonts", "timelines", "objects", "rooms" };
 
 			foreach (string resType in resTree)
 			{
@@ -115,9 +115,14 @@ namespace StudioCleaner
 
 				nodeElementsName = root.Attributes["name"].InnerText;
 
-				TreeNode main = treeViewGMX.Nodes.Add(fup(nodeElementsName), fup(nodeElementsName));
+				TreeNode mmain = new TreeNode(fup(nodeElementsName));
+				mmain.Name = fup(nodeElementsName);
 
-				readSubNode(root, nodeName, nodeElementsName, main);
+				//TreeNode main = treeViewGMX.Nodes.Add(fup(nodeElementsName), fup(nodeElementsName));
+
+				readSubNode(root, nodeName, nodeElementsName, mmain);
+
+				if (mmain.Nodes.Count > 0) treeViewGMX.Nodes.Add(mmain);
 			}
 			catch (Exception e)
 			{
@@ -430,9 +435,9 @@ namespace StudioCleaner
 
 		private PropertyForm createPropWindow(string filename, string tag)
 		{
-			if (panelCodeEditor.Controls.Count > 0)
+			if (this.MdiChildren.Length > 0)
 			{
-				foreach (PropertyForm p in panelCodeEditor.Controls)
+				foreach (PropertyForm p in this.MdiChildren)
 				{
 					if (p.Tag.ToString() == tag)
 					{
@@ -442,20 +447,35 @@ namespace StudioCleaner
 				}
 			}
 
+			//PropertyForm f = new PropertyForm();
+			//f.TopLevel = false;
+			//f.Tag = tag;
+			////f.StartPosition = FormStartPosition.Manual;
+			////f.Dock = DockStyle.Fill;
+			//f.MdiParent = this;
+			////panelCodeEditor.Controls.Add(f);
+			//f.BringToFront();
+
 			PropertyForm f = new PropertyForm();
-			f.TopLevel = false;
+			f.MdiParent = this;
 			f.Tag = tag;
-			f.StartPosition = FormStartPosition.Manual;
-			//f.Dock = DockStyle.Fill;
-			panelCodeEditor.Controls.Add(f);
-			f.BringToFront();
+			f.Dock = DockStyle.Fill;
+
+			TabPage t = new TabPage() { Text = tag + "          ", Name = tag, Tag = filename };
+			t.Controls.Add(f);
+			tabControl1.TabPages.Add(t);
+			f.Show();
+			tabControl1.SelectTab(tag);
+
+
 			if (filename != "") {
 				f.richXML.LoadFile(filename, RichTextBoxStreamType.PlainText);
 				HighlightColors.HighlightRTF(f.richXML);
 			}
 			
-			int pos = ((panelCodeEditor.Controls.Count - 1) * 30) % (panelCodeEditor.Width - f.Width) + 1;
-			f.Location = new Point(pos, pos);
+			//this.LayoutMdi(MdiLayout.Cascade);
+			//int pos = ((panelCodeEditor.Controls.Count - 1) * 30) % (panelCodeEditor.Width - f.Width) + 1;
+			//f.Location = new Point(pos, pos);
 			f.Text = tag;
 			f.Show();
 
@@ -725,10 +745,39 @@ namespace StudioCleaner
 		private void button1_Click(object sender, EventArgs e)
 		{
 			PropertyForm f = new PropertyForm();
-			f.TopLevel = false;
-			//f.Dock = DockStyle.Fill;
-			panelCodeEditor.Controls.Add(f);
+			f.MdiParent = this;
+			TabPage t = new TabPage(){ Text = "Test"};
+			t.Controls.Add(f);
+			f.Dock = DockStyle.Fill;
+			tabControl1.TabPages.Add(t);
 			f.Show();
+		}
+
+		private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
+		{
+			//This code will render a "x" mark at the end of the Tab caption.
+			e.Graphics.DrawString("x", e.Font, Brushes.Black, e.Bounds.Right - 15, e.Bounds.Top + 4);
+			e.Graphics.DrawString(this.tabControl1.TabPages[e.Index].Text, e.Font, Brushes.Black, e.Bounds.Left + 5, e.Bounds.Top + 4);
+			e.DrawFocusRectangle();
+		}
+
+		private void tabControl1_MouseDown(object sender, MouseEventArgs e)
+		{
+			//Looping through the controls.
+			for (int i = 0; i < this.tabControl1.TabPages.Count; i++)
+			{
+				Rectangle r = tabControl1.GetTabRect(i);
+				//Getting the position of the "x" mark.
+				Rectangle closeButton = new Rectangle(r.Right - 15, r.Top + 4, 9, 7);
+				if (closeButton.Contains(e.Location))
+				{
+					if (MessageBox.Show("Would you like to Close this Tab?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+					{
+						this.tabControl1.TabPages.RemoveAt(i);
+						break;
+					}
+				}
+			}
 		}
 
 		//private void findAllObjectsInRoom(string roomFilename)

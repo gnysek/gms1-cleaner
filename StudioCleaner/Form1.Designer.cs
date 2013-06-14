@@ -33,20 +33,6 @@
 			this.treeViewGMX = new System.Windows.Forms.TreeView();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.panelResourceTree = new System.Windows.Forms.Panel();
-			this.panel3 = new System.Windows.Forms.Panel();
-			this.treeViewDisk = new System.Windows.Forms.TreeView();
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.panel4 = new System.Windows.Forms.Panel();
-			this.panelCodeEditor = new System.Windows.Forms.Panel();
-			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.toolStripStatusOrphans = new System.Windows.Forms.ToolStripStatusLabel();
-			this.progressTotal = new System.Windows.Forms.ToolStripProgressBar();
-			this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.btnUnusedSprites = new System.Windows.Forms.Button();
 			this.btnUnusedPNG = new System.Windows.Forms.Button();
 			this.btnParentsAll = new System.Windows.Forms.Button();
@@ -54,20 +40,36 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.butExpandAllDisk = new System.Windows.Forms.Button();
 			this.butExpandAllGMX = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
 			this.btnClearAll = new System.Windows.Forms.Button();
 			this.btnOpen = new System.Windows.Forms.Button();
+			this.treeViewDisk = new System.Windows.Forms.TreeView();
+			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.toolStripOpenDir = new System.Windows.Forms.ToolStripMenuItem();
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.toolStripStatusOrphans = new System.Windows.Forms.ToolStripStatusLabel();
+			this.progressTotal = new System.Windows.Forms.ToolStripProgressBar();
+			this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.toolStripOpenXML = new System.Windows.Forms.ToolStripMenuItem();
 			this.openInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.panel1.SuspendLayout();
-			this.panelResourceTree.SuspendLayout();
-			this.panel3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.contextMenuStrip1.SuspendLayout();
-			this.panel4.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.contextMenuStrip2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.panel2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+			this.splitContainer1.Panel1.SuspendLayout();
+			this.splitContainer1.Panel2.SuspendLayout();
+			this.splitContainer1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// treeViewGMX
@@ -109,135 +111,6 @@
 			this.panel1.Size = new System.Drawing.Size(853, 66);
 			this.panel1.TabIndex = 1;
 			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.label2.Location = new System.Drawing.Point(207, 46);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(79, 13);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "Orphan files:";
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.label1.Location = new System.Drawing.Point(3, 46);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(81, 13);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "Project Files:";
-			// 
-			// panelResourceTree
-			// 
-			this.panelResourceTree.Controls.Add(this.treeViewGMX);
-			this.panelResourceTree.Dock = System.Windows.Forms.DockStyle.Left;
-			this.panelResourceTree.Location = new System.Drawing.Point(0, 0);
-			this.panelResourceTree.Name = "panelResourceTree";
-			this.panelResourceTree.Size = new System.Drawing.Size(200, 371);
-			this.panelResourceTree.TabIndex = 2;
-			// 
-			// panel3
-			// 
-			this.panel3.Controls.Add(this.treeViewDisk);
-			this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-			this.panel3.Location = new System.Drawing.Point(200, 0);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(200, 371);
-			this.panel3.TabIndex = 3;
-			// 
-			// treeViewDisk
-			// 
-			this.treeViewDisk.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.treeViewDisk.ImageIndex = 0;
-			this.treeViewDisk.ImageList = this.imageList1;
-			this.treeViewDisk.Location = new System.Drawing.Point(0, 0);
-			this.treeViewDisk.Name = "treeViewDisk";
-			this.treeViewDisk.SelectedImageIndex = 0;
-			this.treeViewDisk.Size = new System.Drawing.Size(200, 371);
-			this.treeViewDisk.TabIndex = 0;
-			this.treeViewDisk.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeViewDisk_MouseUp);
-			// 
-			// openFileDialog1
-			// 
-			this.openFileDialog1.DefaultExt = "*.project.gmx";
-			this.openFileDialog1.FileName = "openFileDialog1";
-			this.openFileDialog1.Filter = "GM:S Project|*.project.gmx";
-			this.openFileDialog1.SupportMultiDottedExtensions = true;
-			// 
-			// contextMenuStrip1
-			// 
-			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripOpenDir,
-            this.deleteToolStripMenuItem});
-			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(176, 48);
-			// 
-			// panel4
-			// 
-			this.panel4.Controls.Add(this.panelCodeEditor);
-			this.panel4.Controls.Add(this.panel3);
-			this.panel4.Controls.Add(this.panelResourceTree);
-			this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel4.Location = new System.Drawing.Point(0, 66);
-			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(853, 371);
-			this.panel4.TabIndex = 5;
-			// 
-			// panelCodeEditor
-			// 
-			this.panelCodeEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panelCodeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCodeEditor.Location = new System.Drawing.Point(400, 0);
-			this.panelCodeEditor.Name = "panelCodeEditor";
-			this.panelCodeEditor.Size = new System.Drawing.Size(453, 371);
-			this.panelCodeEditor.TabIndex = 4;
-			// 
-			// statusStrip1
-			// 
-			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusOrphans,
-            this.progressTotal});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 437);
-			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(853, 24);
-			this.statusStrip1.TabIndex = 6;
-			this.statusStrip1.Text = "statusStrip1";
-			// 
-			// toolStripStatusLabel1
-			// 
-			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-			this.toolStripStatusLabel1.Size = new System.Drawing.Size(55, 19);
-			this.toolStripStatusLabel1.Text = "Oprhans:";
-			// 
-			// toolStripStatusOrphans
-			// 
-			this.toolStripStatusOrphans.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-			this.toolStripStatusOrphans.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-			this.toolStripStatusOrphans.Name = "toolStripStatusOrphans";
-			this.toolStripStatusOrphans.Size = new System.Drawing.Size(17, 19);
-			this.toolStripStatusOrphans.Text = "0";
-			this.toolStripStatusOrphans.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// progressTotal
-			// 
-			this.progressTotal.Name = "progressTotal";
-			this.progressTotal.Size = new System.Drawing.Size(100, 18);
-			this.progressTotal.Step = 1;
-			this.progressTotal.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-			this.progressTotal.ToolTipText = "Progress";
-			this.progressTotal.Visible = false;
-			// 
-			// contextMenuStrip2
-			// 
-			this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripOpenXML,
-            this.openInExplorerToolStripMenuItem});
-			this.contextMenuStrip2.Name = "contextMenuStrip1";
-			this.contextMenuStrip2.Size = new System.Drawing.Size(171, 48);
-			// 
 			// btnUnusedSprites
 			// 
 			this.btnUnusedSprites.Enabled = false;
@@ -268,7 +141,6 @@
 			// 
 			// btnParentsAll
 			// 
-			this.btnParentsAll.Enabled = false;
 			this.btnParentsAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.btnParentsAll.Image = global::StudioCleaner.Properties.Resources.node_tree;
 			this.btnParentsAll.Location = new System.Drawing.Point(624, 3);
@@ -278,7 +150,7 @@
 			this.btnParentsAll.Text = "Find parents && childrens";
 			this.btnParentsAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.btnParentsAll.UseVisualStyleBackColor = true;
-			this.btnParentsAll.Visible = false;
+			this.btnParentsAll.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// btnUnusedAll
 			// 
@@ -335,6 +207,26 @@
 			this.butExpandAllGMX.UseVisualStyleBackColor = true;
 			this.butExpandAllGMX.Click += new System.EventHandler(this.butExpandAllGMX_Click);
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.label2.Location = new System.Drawing.Point(207, 46);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(79, 13);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "Orphan files:";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.label1.Location = new System.Drawing.Point(3, 46);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(81, 13);
+			this.label1.TabIndex = 2;
+			this.label1.Text = "Project Files:";
+			// 
 			// btnClearAll
 			// 
 			this.btnClearAll.Enabled = false;
@@ -362,6 +254,33 @@
 			this.btnOpen.UseVisualStyleBackColor = true;
 			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
 			// 
+			// treeViewDisk
+			// 
+			this.treeViewDisk.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.treeViewDisk.ImageIndex = 0;
+			this.treeViewDisk.ImageList = this.imageList1;
+			this.treeViewDisk.Location = new System.Drawing.Point(0, 0);
+			this.treeViewDisk.Name = "treeViewDisk";
+			this.treeViewDisk.SelectedImageIndex = 0;
+			this.treeViewDisk.Size = new System.Drawing.Size(196, 371);
+			this.treeViewDisk.TabIndex = 0;
+			this.treeViewDisk.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeViewDisk_MouseUp);
+			// 
+			// openFileDialog1
+			// 
+			this.openFileDialog1.DefaultExt = "*.project.gmx";
+			this.openFileDialog1.FileName = "openFileDialog1";
+			this.openFileDialog1.Filter = "GM:S Project|*.project.gmx";
+			this.openFileDialog1.SupportMultiDottedExtensions = true;
+			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripOpenDir,
+            this.deleteToolStripMenuItem});
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.Size = new System.Drawing.Size(176, 48);
+			// 
 			// toolStripOpenDir
 			// 
 			this.toolStripOpenDir.Image = global::StudioCleaner.Properties.Resources.folder_go;
@@ -377,6 +296,50 @@
 			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.deleteToolStripMenuItem.Text = "Delete";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+			// 
+			// statusStrip1
+			// 
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusOrphans,
+            this.progressTotal});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 437);
+			this.statusStrip1.Name = "statusStrip1";
+			this.statusStrip1.Size = new System.Drawing.Size(853, 24);
+			this.statusStrip1.TabIndex = 6;
+			this.statusStrip1.Text = "statusStrip1";
+			// 
+			// toolStripStatusLabel1
+			// 
+			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+			this.toolStripStatusLabel1.Size = new System.Drawing.Size(55, 19);
+			this.toolStripStatusLabel1.Text = "Oprhans:";
+			// 
+			// toolStripStatusOrphans
+			// 
+			this.toolStripStatusOrphans.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+			this.toolStripStatusOrphans.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+			this.toolStripStatusOrphans.Name = "toolStripStatusOrphans";
+			this.toolStripStatusOrphans.Size = new System.Drawing.Size(17, 19);
+			this.toolStripStatusOrphans.Text = "0";
+			this.toolStripStatusOrphans.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// progressTotal
+			// 
+			this.progressTotal.Name = "progressTotal";
+			this.progressTotal.Size = new System.Drawing.Size(100, 18);
+			this.progressTotal.Step = 1;
+			this.progressTotal.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+			this.progressTotal.ToolTipText = "Progress";
+			this.progressTotal.Visible = false;
+			// 
+			// contextMenuStrip2
+			// 
+			this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripOpenXML,
+            this.openInExplorerToolStripMenuItem});
+			this.contextMenuStrip2.Name = "contextMenuStrip1";
+			this.contextMenuStrip2.Size = new System.Drawing.Size(171, 48);
 			// 
 			// toolStripOpenXML
 			// 
@@ -394,15 +357,63 @@
 			this.openInExplorerToolStripMenuItem.Text = "Open in Explorer...";
 			this.openInExplorerToolStripMenuItem.Click += new System.EventHandler(this.openInExplorerToolStripMenuItem_Click);
 			// 
+			// panel2
+			// 
+			this.panel2.Controls.Add(this.splitContainer1);
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+			this.panel2.Location = new System.Drawing.Point(0, 66);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(400, 371);
+			this.panel2.TabIndex = 9;
+			// 
+			// splitContainer1
+			// 
+			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer1.Name = "splitContainer1";
+			// 
+			// splitContainer1.Panel1
+			// 
+			this.splitContainer1.Panel1.Controls.Add(this.treeViewGMX);
+			// 
+			// splitContainer1.Panel2
+			// 
+			this.splitContainer1.Panel2.Controls.Add(this.treeViewDisk);
+			this.splitContainer1.Size = new System.Drawing.Size(400, 371);
+			this.splitContainer1.SplitterDistance = 200;
+			this.splitContainer1.TabIndex = 1;
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(400, 66);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(3, 371);
+			this.splitter1.TabIndex = 10;
+			this.splitter1.TabStop = false;
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+			this.tabControl1.Location = new System.Drawing.Point(403, 66);
+			this.tabControl1.Multiline = true;
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(450, 371);
+			this.tabControl1.TabIndex = 14;
+			this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+			this.tabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(853, 461);
-			this.Controls.Add(this.panel4);
+			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.splitter1);
+			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.statusStrip1);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.IsMdiContainer = true;
 			this.Name = "Form1";
@@ -411,14 +422,16 @@
 			this.Shown += new System.EventHandler(this.Form1_Shown);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
-			this.panelResourceTree.ResumeLayout(false);
-			this.panel3.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.contextMenuStrip1.ResumeLayout(false);
-			this.panel4.ResumeLayout(false);
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
 			this.contextMenuStrip2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.panel2.ResumeLayout(false);
+			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+			this.splitContainer1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -430,8 +443,6 @@
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button btnClearAll;
 		private System.Windows.Forms.Button btnOpen;
-		private System.Windows.Forms.Panel panelResourceTree;
-		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.TreeView treeViewDisk;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -442,12 +453,10 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button butExpandAllGMX;
 		private System.Windows.Forms.Button butExpandAllDisk;
-		private System.Windows.Forms.Panel panel4;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusOrphans;
 		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Panel panelCodeEditor;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
 		private System.Windows.Forms.ToolStripMenuItem toolStripOpenXML;
 		private System.Windows.Forms.ToolStripMenuItem openInExplorerToolStripMenuItem;
@@ -456,6 +465,10 @@
 		private System.Windows.Forms.ToolStripProgressBar progressTotal;
 		private System.Windows.Forms.Button btnUnusedPNG;
 		private System.Windows.Forms.Button btnUnusedSprites;
+		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.Splitter splitter1;
+		private System.Windows.Forms.SplitContainer splitContainer1;
+		private System.Windows.Forms.TabControl tabControl1;
 	}
 }
 

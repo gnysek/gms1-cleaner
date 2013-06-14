@@ -63,11 +63,16 @@
 			this.ClientSize = new System.Drawing.Size(347, 207);
 			this.Controls.Add(this.gmxEditor1);
 			this.Controls.Add(this.richXML);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "PropertyForm";
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "PropertyForm";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.ResumeLayout(false);
 
 		}
