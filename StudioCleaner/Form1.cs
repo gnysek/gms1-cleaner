@@ -10,6 +10,9 @@ using System.IO;
 using System.Xml;
 using System.Globalization;
 using System.Xml.Linq;
+using System.Reflection;
+using WeifenLuo.WinFormsUI;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace StudioCleaner
 {
@@ -25,6 +28,19 @@ namespace StudioCleaner
 
 		public Form1()
 		{
+			AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+			{
+				string resourceName = new AssemblyName(args.Name).Name + ".dll";
+				string resource = Array.Find(this.GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+				using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+				{
+					Byte[] assemblyData = new Byte[stream.Length];
+					stream.Read(assemblyData, 0, assemblyData.Length);
+					return Assembly.Load(assemblyData);
+				}
+			};
+
 			InitializeComponent();
 		}
 
@@ -447,37 +463,21 @@ namespace StudioCleaner
 				}
 			}
 
-			//PropertyForm f = new PropertyForm();
-			//f.TopLevel = false;
-			//f.Tag = tag;
-			////f.StartPosition = FormStartPosition.Manual;
-			////f.Dock = DockStyle.Fill;
-			//f.MdiParent = this;
-			////panelCodeEditor.Controls.Add(f);
-			//f.BringToFront();
+			PropertyForm content1 = new PropertyForm();
 
 			PropertyForm f = new PropertyForm();
-			f.MdiParent = this;
 			f.Tag = tag;
-			f.Dock = DockStyle.Fill;
 
-			TabPage t = new TabPage() { Text = tag + "          ", Name = tag, Tag = filename };
-			t.Controls.Add(f);
-			tabControl1.TabPages.Add(t);
-			f.Show();
-			tabControl1.SelectTab(tag);
-
+			f.TabText = tag;
+			f.Show(dockPanel1);
+			Bitmap bmp = new Bitmap(imageList1.Images[1]);
+			IntPtr Hicon = bmp.GetHicon();
+			f.Icon = Icon.FromHandle(Hicon);
 
 			if (filename != "") {
 				f.richXML.LoadFile(filename, RichTextBoxStreamType.PlainText);
 				HighlightColors.HighlightRTF(f.richXML);
 			}
-			
-			//this.LayoutMdi(MdiLayout.Cascade);
-			//int pos = ((panelCodeEditor.Controls.Count - 1) * 30) % (panelCodeEditor.Width - f.Width) + 1;
-			//f.Location = new Point(pos, pos);
-			f.Text = tag;
-			f.Show();
 
 			return f;
 		}
@@ -744,40 +744,9 @@ namespace StudioCleaner
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			PropertyForm f = new PropertyForm();
-			f.MdiParent = this;
-			TabPage t = new TabPage(){ Text = "Test"};
-			t.Controls.Add(f);
-			f.Dock = DockStyle.Fill;
-			tabControl1.TabPages.Add(t);
-			f.Show();
-		}
-
-		private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
-		{
-			//This code will render a "x" mark at the end of the Tab caption.
-			e.Graphics.DrawString("x", e.Font, Brushes.Black, e.Bounds.Right - 15, e.Bounds.Top + 4);
-			e.Graphics.DrawString(this.tabControl1.TabPages[e.Index].Text, e.Font, Brushes.Black, e.Bounds.Left + 5, e.Bounds.Top + 4);
-			e.DrawFocusRectangle();
-		}
-
-		private void tabControl1_MouseDown(object sender, MouseEventArgs e)
-		{
-			//Looping through the controls.
-			for (int i = 0; i < this.tabControl1.TabPages.Count; i++)
-			{
-				Rectangle r = tabControl1.GetTabRect(i);
-				//Getting the position of the "x" mark.
-				Rectangle closeButton = new Rectangle(r.Right - 15, r.Top + 4, 9, 7);
-				if (closeButton.Contains(e.Location))
-				{
-					if (MessageBox.Show("Would you like to Close this Tab?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-					{
-						this.tabControl1.TabPages.RemoveAt(i);
-						break;
-					}
-				}
-			}
+			PropertyForm content1 = new PropertyForm();
+			content1.TabText = "test";
+			content1.Show(dockPanel1);
 		}
 
 		//private void findAllObjectsInRoom(string roomFilename)
