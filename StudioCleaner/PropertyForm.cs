@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace StudioCleaner
 {
-	public partial class PropertyForm : Form
+	public partial class PropertyForm : DockContent
 	{
 		public PropertyForm()
 		{

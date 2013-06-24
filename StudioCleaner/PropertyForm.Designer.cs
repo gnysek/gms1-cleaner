@@ -58,21 +58,16 @@
 			// 
 			// PropertyForm
 			// 
+			this.AllowEndUserDocking = false;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(347, 207);
 			this.Controls.Add(this.gmxEditor1);
 			this.Controls.Add(this.richXML);
+			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
 			this.Name = "PropertyForm";
-			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
-			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "PropertyForm";
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.ResumeLayout(false);
 
 		}
