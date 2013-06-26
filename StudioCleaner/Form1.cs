@@ -60,6 +60,10 @@ namespace StudioCleaner
 				orphans = 0;
 
 				clearTrees();
+				foreach (PropertyForm p in this.MdiChildren)
+				{
+					p.Dispose();
+				}
 
 				string PName = Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(openFileDialog1.FileName));
 				treeViewGMX.Nodes.Add(PName);
@@ -73,11 +77,6 @@ namespace StudioCleaner
 				btnUnusedAll.Enabled = true;
 				btnUnusedPNG.Enabled = true;
 				btnUnusedSprites.Enabled = true;
-
-				foreach (PropertyForm p in this.MdiChildren)
-				{
-					p.Dispose();
-				}
 
 				checkZeroOprhans();
 			}
@@ -178,6 +177,8 @@ namespace StudioCleaner
 								current.ContextMenuStrip = contextMenuStrip1;
 								current.Tag = f;
 								current.ImageIndex = current.SelectedImageIndex = 1;
+								UnusedList w = createResultWindow("Orphans");
+								w.addItem(f);
 								orphans++;
 							}
 						}
@@ -453,7 +454,7 @@ namespace StudioCleaner
 		{
 			if (this.MdiChildren.Length > 0)
 			{
-				foreach (PropertyForm p in this.MdiChildren)
+				foreach (PropertyForm p in this.MdiChildren.OfType<PropertyForm>())
 				{
 					if (p.Tag.ToString() == tag)
 					{
@@ -462,8 +463,6 @@ namespace StudioCleaner
 					}
 				}
 			}
-
-			PropertyForm content1 = new PropertyForm();
 
 			PropertyForm f = new PropertyForm();
 			f.Tag = tag;
@@ -478,6 +477,32 @@ namespace StudioCleaner
 				f.richXML.LoadFile(filename, RichTextBoxStreamType.PlainText);
 				HighlightColors.HighlightRTF(f.richXML);
 			}
+
+			return f;
+		}
+
+		private UnusedList createResultWindow(string tag)
+		{
+			if (this.MdiChildren.Length > 0)
+			{
+				foreach (UnusedList p in this.MdiChildren.OfType<UnusedList>())
+				{
+					if (p.Tag.ToString() == tag)
+					{
+						p.BringToFront();
+						return p;
+					}
+				}
+			}
+
+			UnusedList f = new UnusedList();
+			f.Tag = tag;
+
+			f.TabText = tag;
+			f.Show(dockPanel1);
+			Bitmap bmp = new Bitmap(imageList1.Images[1]);
+			IntPtr Hicon = bmp.GetHicon();
+			f.Icon = Icon.FromHandle(Hicon);
 
 			return f;
 		}
@@ -516,6 +541,7 @@ namespace StudioCleaner
 			btnUnusedAll.Enabled = false;
 
 			PropertyForm p = createPropWindow("", "unused" + searchType);
+			UnusedList unused = createResultWindow("unused" + searchType);
 			RichTextBox richXML = p.richXML;
 			richXML.Clear();
 			p.Text = "Unused " + searchType;
@@ -593,6 +619,7 @@ namespace StudioCleaner
 						richXML.AppendText(obj + "\r\n");
 						richXML.Select(richXML.GetFirstCharIndexFromLine(cnt), richXML.Lines[cnt].Length);
 						richXML.SelectionColor = Color.Red;
+						unused.addItem(obj);
 						cnt++;
 					}
 				}

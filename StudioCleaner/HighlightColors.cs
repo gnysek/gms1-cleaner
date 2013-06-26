@@ -59,7 +59,6 @@ namespace StudioCleaner
 				}
 				String nodeText = str.Substring(st + 1, en - st - 1);
 
-
 				bool inString = false;
 
 				int lastSt = -1;
