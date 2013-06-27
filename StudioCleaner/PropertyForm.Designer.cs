@@ -1,4 +1,6 @@
-﻿namespace StudioCleaner
+﻿using GMXEditor;
+
+namespace StudioCleaner
 {
 	partial class PropertyForm
 	{
@@ -29,7 +31,8 @@
 		private void InitializeComponent()
 		{
 			this.richXML = new System.Windows.Forms.RichTextBox();
-			this.gmxEditor1 = new StudioCleaner.GmxEditor();
+			this.gmxEditor1 = new GMXEditor.GmxEditor();
+			((System.ComponentModel.ISupportInitialize)(this.gmxEditor1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// richXML
@@ -50,11 +53,10 @@
 			// 
 			// gmxEditor1
 			// 
-			this.gmxEditor1.Location = new System.Drawing.Point(292, 12);
+			this.gmxEditor1.Location = new System.Drawing.Point(79, 12);
 			this.gmxEditor1.Name = "gmxEditor1";
-			this.gmxEditor1.Size = new System.Drawing.Size(43, 42);
+			this.gmxEditor1.Size = new System.Drawing.Size(256, 115);
 			this.gmxEditor1.TabIndex = 1;
-			this.gmxEditor1.Visible = false;
 			// 
 			// PropertyForm
 			// 
@@ -68,6 +70,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "PropertyForm";
 			this.Text = "PropertyForm";
+			((System.ComponentModel.ISupportInitialize)(this.gmxEditor1)).EndInit();
 			this.ResumeLayout(false);
 
 		}

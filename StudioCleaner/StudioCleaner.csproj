@@ -73,11 +73,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GmxEditor.cs">
+    <Compile Include="GMXEditor\GmxEditor.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GmxEditor.Designer.cs">
-      <DependentUpon>GmxEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="GMXFormat\GMXEnums.cs" />
     <Compile Include="GMXFormat\GMXFile.cs" />
@@ -101,7 +98,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GmxEditor.resx">
+    <EmbeddedResource Include="GMXEditor\GmxEditor.resx">
       <DependentUpon>GmxEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
